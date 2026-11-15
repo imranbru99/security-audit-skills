@@ -1,0 +1,18 @@
+# INTENTIONALLY VULNERABLE — teaching fixture for security-audit-skills.
+# Do not use this workflow in a repository that has secrets or a write token.
+name: ci
+
+on:
+  pull_request_target:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: npm ci && npm test
